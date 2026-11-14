@@ -1,25 +1,33 @@
-#workflow
-#Should Have Name
-name: Hello
+# This is workflow name
+name: Hello 
 
-#On tells when the workflow should run (Give identification by tab) 
+# runs on an automatic trigger, whenever change is pushed to branch (deployment)
 on:
-  workflow-dispatch:
-  
-#Jobs - tells what workflows should do do , there can be one or more than one jobs , hence we write jobs 
-#job is an object so needs indentation
-#Should be inside the workflow
+  # workflow_dispatch:
+  push:
+    branches: [main]
+  #   paths:
+  #     - '**.html'
+
+  pull_request:
+    branches: [main]
+
+# these are jobs inside the workflow
 jobs:
-#1st job 
-  say-hello:
-  # Creats an ephermal container with ubuntu running 
+
+  # this is the name of the job
+  greet:
+    # this is github runner, each job runs on a runner
     runs-on: ubuntu-latest
     steps:
-      - name: Say hello to everyone 
-        run: echo "Hello India!"
+      - name: say hello to users
+        run: echo "Hello Dosto"
 
-#steps
-#should be inside the job 
+      - name: say hello to username
+        run: echo "Hello $USER"
 
-#Actions
-#should be inside the steps
+  details:
+    runs-on: ubuntu-latest
+    steps:
+      - name: version of python, docker, etc
+        run: docker --version && python --version
